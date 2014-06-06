@@ -6,7 +6,7 @@
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": "git@github.com:storjarn/node-toolbox.git"
+    "url": "https://github.com/storjarn/node-toolbox.git"
   },
   "engines": {
     "node": ">=0.8.0"
