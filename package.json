@@ -25,3 +25,44 @@
     
   }
 }
+
+
+{
+  "name": "node-toolbox",
+  "version": "0.0.1",
+  "description": "",
+  "directories": {
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/storjarn/node-toolbox.git"
+  },
+  "keywords": [
+    "Javascript",
+    "class",
+    "library",
+    "Node.js"
+  ],
+  "author": {
+    "name": "Christopher Maples",
+    "email": "cmaples77@gmail.com"
+  },
+  "dependencies": {
+    "grunt": "~0.4.2"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest",
+    "request" : "latest"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/storjarn/node-toolbox/issues"
+  },
+  "homepage": "https://github.com/storjarn/node-toolbox",
+  "readme": "node-toolbox\n======\n",
+  "readmeFilename": "README.md"
+}
