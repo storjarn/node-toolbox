@@ -9,7 +9,7 @@
     "test": "test"
   },
   "repository": {
-    "type": "http+git",
+    "type": "git",
     "url": "https://github.com/storjarn/node-toolbox.git"
   },
   "keywords": [
@@ -19,8 +19,7 @@
     "Node.js"
   ],
   "author": {
-    "name": "Christopher Maples",
-    "email": "cmaples77@gmail.com"
+    "name": "Christopher Maples"
   },
   "dependencies": {
     "grunt": "~0.4.2"
