@@ -1,0 +1,27 @@
+{
+  "author": "cmaples <cmaples77@gmail.com>",
+  "name": "node-toolbox",
+  "description": "",
+  "version": "0.0.1",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:storjarn/node-toolbox.git"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "dependencies": {
+    "grunt": "~0.4.2"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest",
+    "request" : "latest"
+  },
+  "bin" : { 
+  },
+  "scripts": {
+    
+  }
+}
