@@ -51,7 +51,7 @@ if(argv[0] === "--help" || argv[0] === "-h")
                 input.CommitMessage = data.replace(/\n/, "").replace(/\"/, "\\\"");
 
                 if (!!input.TicketName && input.CommitMessage != 'n') {
-                    var execCmd = "git add -A && git commit -am \""+input.TicketName+" "+input.CommitMessage+"\" && git push";
+                    var execCmd = "git add -A && git commit -am \""+input.TicketName+" "+input.CommitMessage+"\"";
                     process.stdout.write("exec:  "+ execCmd + "\n");
                     exec(execCmd, function(err, stdout, stderr) {
                         consoleCallback(err, stderr, stdout);
