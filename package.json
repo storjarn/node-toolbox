@@ -1,7 +1,7 @@
 {
   "name": "node-toolbox",
   "version": "0.0.1",
-  "description": "",
+  "description": "Node.js applications and libraries that tend to prove useful.",
   "main" : "",
   "directories": {
   },
@@ -9,7 +9,7 @@
     "test": "test"
   },
   "repository": {
-    "type": "git",
+    "type": "http+git",
     "url": "https://github.com/storjarn/node-toolbox.git"
   },
   "keywords": [
