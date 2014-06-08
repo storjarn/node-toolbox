@@ -1,152 +1,86 @@
 #!/usr/local/bin/node
 
-var argv = process.argv.slice(2);
+var Console = new (require('./../Console.js')).Console();
 
-var sys = require('sys');
-var exec = require('child_process').exec;
-    
+Console.InputHandlers.StdIn = {
+    Echo : function(data) {
+        Console.Write(data);
+    },
+    Quit : function(data) {
+        Console.Exit(data || 0);
+    },
+    Start : function(data) {
+        Console.Exec("git rev-parse --abbrev-ref HEAD", function(err, stdout, stderr) {
+            data = Console.cleanInput( Console.StdOut );
+            Console.Input.BranchName = data;
+            Console.Input.TicketName = Console.Input.BranchName.split("__")[0];
 
-function help() {
-    console.log("usage: ...");
-};
+            Console.Exec("git status", function(err, stdout, stderr) {
+                Console.WriteLine("Commit message? Type the message to continue or 'n' to quit");
+                Console.HandleInput('StdIn', 'CommitMessage');
+            });
+        });
+    },
+    CommitMessage : function(data) {
+        Console.Input.CommitMessage = Console.cleanInput(data).replace(/\"/, "\\\"");
 
-if(argv[0] === "--help" || argv[0] === "-h") 
-{  
-    help();
-} else {
-
-    var state = 0;
-
-    var input = {
-
-    };
-
-    function consoleCallback(err, stderr, stdout, callback) {
-        if (!!err)  {
-            sys.puts(stderr);
-            process.exit(1);
+        if (!!Console.Input.TicketName && Console.Input.CommitMessage != 'n') {
+            Console.Exec(
+                "git add -A . && git commit -am \""+Console.Input.TicketName+" "+Console.Input.CommitMessage+"\"", 
+                function(err, stdout, stderr) {
+                    Console.WriteLine("Want to rebase branch? y or n");
+                    Console.HandleInput('StdIn', 'RebaseBranchChoose');
+                }
+            );
         } else {
-            sys.puts(stdout);
+            Console.Exit(0);
         }
+    },
+    RebaseBranchChoose : function(data) {
+        Console.Input.Rebase = Console.cleanInput(data);
 
-        if (!!callback) {
-            callback();
+        if (Console.Input.Rebase == 'y') {
+            Console.WriteLine("Type the name of the branch you want to rebase onto.");
+            Console.Exec("git branch -a", function(err, stdout, stderr){
+                Console.HandleInput('StdIn', 'RebaseBranch');
+            });
+        } else {
+            Console.Exit(0);
         }
-    }
+    },
+    RebaseBranch : function(data) {
+        Console.Input.SwitchBranch = Console.cleanInput(data);
 
-    state = 1;
-
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('data', function(data) {
-        switch(state) {
-            case -1 :       //Echo
-                process.stdout.write(data);
-                break;
-            case 0 :        //Start
-                
-                break;
-            case 1 :        //Commit message?  Rebase branch?
-                state = 2;
-                input.CommitMessage = data.replace(/\n/, "").replace(/\"/, "\\\"");
-
-                if (!!input.TicketName && input.CommitMessage != 'n') {
-                    var execCmd = "git add -A && git commit -am \""+input.TicketName+" "+input.CommitMessage+"\"";
-                    process.stdout.write("exec:  "+ execCmd + "\n");
-                    exec(execCmd, function(err, stdout, stderr) {
-                        consoleCallback(err, stderr, stdout);
-                        process.stdout.write("Want to rebase branch? y or n\n");
-                    });
-                } else {
-                    process.exit(0);
-                }
-                break;
-            case 2 :       //Rebase?  Which Branch?
-                state = 3;
-                input.Rebase = data.replace(/\n/, "");
-                if (input.Rebase == 'y') {
-                    process.stdout.write("Type the name of the branch you want to rebase onto.\n");
-                    var execCmd = "git branch";
-                    process.stdout.write("exec:  "+ execCmd + "\n");
-                    exec(execCmd, function(err, stdout, stderr){
-                        consoleCallback(err, stderr, stdout);
-                    });
-                } else {
-                    process.exit(0);
-                }
-                break;
-            case 3 :       //Rebase.
-                state = 4;
-                input.SwitchBranch = data.replace(/\n/, "");
-                if (!!input.SwitchBranch) {
-                    var execCmd = "git checkout " + input.SwitchBranch;
-                    process.stdout.write("exec:  "+ execCmd + "\n");
-                    exec(execCmd, function(err, stdout, stderr) {
-                        consoleCallback(err, stderr, stdout);
-                        execCmd = "git pull";
-                        process.stdout.write("exec:  "+ execCmd + "\n");
-                        exec(execCmd, function(err, stdout, stderr) {
-                            consoleCallback(err, stderr, stdout);
-                            execCmd = "git checkout " + input.BranchName;
-                            process.stdout.write("exec:  "+ execCmd + "\n");
-                            exec(execCmd, function(err, stdout, stderr) {
-                                consoleCallback(err, stderr, stdout);
-                                execCmd = "git rebase " + input.SwitchBranch;
-                                process.stdout.write("exec:  "+ execCmd + "\n");
-                                exec(execCmd, function(err, stdout, stderr) {
-                                    consoleCallback(err, stderr, stdout);
-                                    execCmd = "git checkout " + input.SwitchBranch;
-                                    process.stdout.write("exec:  "+ execCmd + "\n");
-                                    exec(execCmd, function(err, stdout, stderr) {
-                                        consoleCallback(err, stderr, stdout); 
-                                        execCmd = "git pull";
-                                        process.stdout.write("exec:  "+ execCmd + "\n");
-                                        exec(execCmd, function(err, stdout, stderr) {
-                                            consoleCallback(err, stderr, stdout);
-                                            execCmd = "git checkout " + input.BranchName;
-                                            process.stdout.write("exec:  "+ execCmd + "\n");
-                                            exec(execCmd, function(err, stdout, stderr) {
-                                                consoleCallback(err, stderr, stdout, function(){
-                                                    process.exit(0);
-                                                });
-                                            });
-                                        });
+        if (!!Console.Input.SwitchBranch) {
+            Console.Exec("git checkout " + Console.Input.SwitchBranch, function(err, stdout, stderr) {
+                Console.Exec("git pull", function(err, stdout, stderr) {
+                    Console.Exec("git checkout " + Console.Input.BranchName, function(err, stdout, stderr) {
+                        Console.Exec("git rebase -i " + Console.Input.SwitchBranch, function(err, stdout, stderr) {
+                            Console.Exec("git checkout " + Console.Input.SwitchBranch, function(err, stdout, stderr) {
+                                Console.Exec("git pull", function(err, stdout, stderr) {
+                                    Console.Exec("git checkout " + Console.Input.BranchName, function(err, stdout, stderr) {
+                                        Console.Exit(0);
                                     });
                                 });
                             });
                         });
                     });
-                }
-                break;
-            case null :     //Quit
-                process.exit(0);
-        }
-    });
-
-    var execCmd = "git rev-parse --abbrev-ref HEAD";
-    process.stdout.write("exec:  "+ execCmd + "\n");
-    exec(execCmd, function(err, stdout, stderr) {
-        consoleCallback(err, stderr, stdout);
-
-        input.BranchName = stdout.toString().replace(/\n/, "");
-
-        input.TicketName = input.BranchName.split("__")[0];
-        exec(execCmd, function(err, stdout, stderr) {
-            consoleCallback(err, stderr, stdout);
-            execCmd = "git status";
-            process.stdout.write("exec:  "+ execCmd + "\n");
-            exec(execCmd, function(err, stdout, stderr) {
-                consoleCallback(err, stderr, stdout);
-                process.stdout.write("Commit message? Type the message to continue or 'n' to quit\n");
+                });
             });
-        });
-    });
-}
+        } else {
+            Console.Exit(0);
+        }
+    }
+};
 
-process.on('SIGINT', function () {
-    console.log('Got a SIGINT. Goodbye cruel world');
-    process.exit(0);
-});
+Console.Main = function(){
+    Console.InputHandlers.StdIn.Start();
+};
 
+Console.Run();
     
+
+
+
+
 

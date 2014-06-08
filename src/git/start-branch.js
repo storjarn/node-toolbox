@@ -1,96 +1,50 @@
 #!/usr/local/bin/node
 
-var argv = process.argv.slice(2);
+var Console = new (require('./../Console.js')).Console();
 
-var sys = require('sys');
-var exec = require('child_process').exec;
-    
+Console.InputHandlers.StdIn = {
+    Echo : function(data) {
+        Console.Write(data);
+    },
+    Quit : function(data) {
+        Console.Exit(data || 0);
+    },
+    Start : function(data) {
+        Console.WriteLine("What is your ticket number?");
+        Console.HandleInput('StdIn', 'TicketNumber');
+    },
+    TicketNumber : function(data) {
+        Console.Input.TicketNumber = !!data ? Console.cleanInput(data).toUpperCase() : null;
+        Console.WriteLine("What is your ticket name?");
+        Console.HandleInput('StdIn', 'TicketName');
+    },
+    TicketName : function(data) {
+        Console.Input.TicketName = !!data ? Console.cleanInput(data).toLowerCase().split(" ").join("-") : null;
 
-function help() {
-    console.log("usage: ...");
-};
+        if (!!Console.Input.TicketName && !!Console.Input.TicketNumber) {
 
-if(argv[0] === "--help" || argv[0] === "-h") 
-{  
-    help();
-} else {
+            var branchName = Console.Input.TicketNumber+"__"+Console.Input.TicketName;
 
-    var state = 0;
+            Console.Exec("git checkout -b "+branchName, function(err, stdout, stderr) {
+                Console.Exec(
+                    "git push --set-upstream origin " + branchName, 
+                    function(err, stdout, stderr){
+                        Console.Exit();
+                    }
+                )
+            });
 
-    var input = {
-
-    };
-
-    function consoleCallback(err, stderr, stdout, callback) {
-        if (!!err)  {
-            sys.puts(stderr);
-            process.exit(1);
         } else {
-            sys.puts(stdout);
-        }
-
-        if (!!callback) {
-            callback();
+            Console.WriteLine("Error:  You need to provide a ticket number and name!");
+            Console.Exit(1);
         }
     }
+};
 
-    state = 1;
-    process.stdout.write("What is your ticket number?\n");
+Console.Main = function(){
+    Console.InputHandlers.StdIn.Start();
+};
 
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('data', function(data) {
-        switch(state) {
-            case -1 :       //Echo
-                process.stdout.write(data);
-                break;
-            case 0 :        //Start
-                
-                break;
-            case 1 :        //Ticket Number?
-                input.TicketNumber = !!data ? data.toUpperCase().replace("\n", "") : null;
-                state = 2;
-                process.stdout.write("What is your ticket name?\n");
-                break;
-            case 2 :
-                input.TicketName = !!data ? data.toLowerCase().replace("\n", "").split(" ").join("-") : null;
-
-                if (!!input.TicketName && !!input.TicketNumber) {
-
-                    state = null;
-
-                    var branchName = input.TicketNumber+"__"+input.TicketName;
-
-                    var execCmd = "git checkout -b "+branchName;
-                    process.stdout.write("exec:  "+ execCmd + "\n");
-                    exec("git checkout -b "+branchName, function(err, stdout, stderr) {
-                        consoleCallback(err, stderr, stdout);
-
-                        execCmd = "git push --set-upstream origin HEAD:" + branchName;
-                        process.stdout.write("exec:  "+ execCmd + "\n");
-                        exec("git push --set-upstream origin " + branchName, function(err, stdout, stderr) {
-                            consoleCallback(err, stderr, stdout, function(){
-                                process.exit(0);
-                            });
-                        });
-
-                    });
-
-                } else {
-                    process.stdout.write("Error:  You need to provide a ticket number and name!");
-                    process.exit(1);
-                }
-                break;
-            case null :     //Quit
-                process.exit(0);
-        }
-    });
-}
-
-process.on('SIGINT', function () {
-    console.log('Got a SIGINT. Goodbye cruel world');
-    process.exit(0);
-});
-
+Console.Run();
     
 
