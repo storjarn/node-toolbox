@@ -5,8 +5,20 @@
   "main" : "",
   "directories": {
   },
+  "bin" : {
+    "startbranch" : "node ./src/git/start-branch.js",
+    "commitbranch" : "node ./src/git/commit-branch.js",
+    "cleanbranch" : "node ./src/git/clean-branch.js",
+    "pushbranch" : "node ./src/git/push-branch.js",
+    "finishbranch" : "node ./src/git/finish-branch.js"
+  },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start-branch" : "node ./src/git/start-branch.js",
+    "commit-branch" : "node ./src/git/commit-branch.js",
+    "clean-branch" : "node ./src/git/clean-branch.js",
+    "push-branch" : "node ./src/git/push-branch.js",
+    "finish-branch" : "node ./src/git/finish-branch.js"
   },
   "repository": {
     "type": "git",
