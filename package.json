@@ -6,11 +6,11 @@
   "directories": {
   },
   "bin" : {
-    "startbranch" : "node ./src/git/start-branch.js",
-    "commitbranch" : "node ./src/git/commit-branch.js",
-    "cleanbranch" : "node ./src/git/clean-branch.js",
-    "pushbranch" : "node ./src/git/push-branch.js",
-    "finishbranch" : "node ./src/git/finish-branch.js"
+    "startbranch" : "./src/git/start-branch.js",
+    "commitbranch" : "./src/git/commit-branch.js",
+    "cleanbranch" : "./src/git/clean-branch.js",
+    "pushbranch" : "./src/git/push-branch.js",
+    "finishbranch" : "./src/git/finish-branch.js"
   },
   "scripts": {
     "test": "test",
