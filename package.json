@@ -22,7 +22,8 @@
     "name": "Christopher Maples"
   },
   "dependencies": {
-    "grunt": "~0.4.2"
+    "grunt": "~0.4.2",
+    "node-toolbox": "git://github.com/storjarn/node-toolbox.git#master"
   },
   "devDependencies": {
     "mocha": "latest",
