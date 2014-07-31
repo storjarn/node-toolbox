@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-var Console = new (require('./../Console.js')).Console();
+var Console = new (require('./../Console.js'))();
 
 Console.InputHandlers.StdIn = {
     Echo : function(data) {
@@ -34,7 +34,7 @@ Console.InputHandlers.StdIn = {
 
             Console.Exec("git checkout -b "+branchName, function(err, stdout, stderr) {
                 Console.Exec(
-                    "git push --set-upstream origin " + branchName, 
+                    "git push --set-upstream origin " + branchName,
                     function(err, stdout, stderr){
                         Console.Exit();
                     }
@@ -48,10 +48,6 @@ Console.InputHandlers.StdIn = {
     }
 };
 
-Console.Main = function(){
-    Console.InputHandlers.StdIn.Start();
-};
-
 Console.Run();
-    
+
 

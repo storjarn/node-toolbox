@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-var Console = new (require('./../Console.js')).Console();
+var Console = new (require('./../Console.js'))();
 
 Console.InputHandlers.StdIn = {
     Echo : function(data) {
@@ -35,4 +35,4 @@ Console.Main = function(){
 };
 
 Console.Run();
-    
+

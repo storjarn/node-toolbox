@@ -10,16 +10,27 @@
     "commitbranch" : "./src/git/commit-branch.js",
     "cleanbranch" : "./src/git/clean-branch.js",
     "pushbranch" : "./src/git/push-branch.js",
-    "finishbranch" : "./src/git/finish-branch.js"
+    "finishbranch" : "./src/git/finish-branch.js",
+    "db.postgres.new" : "./tools/db/pg.db.create.sh",
+    "db.pdo_pgsql.install" : "./tools/db/pdo_pgsql.install.sh",
+    "node.program.new" : "./tools/node/newprogram.js",
+    "dice" : "./tools/game/dice.js"
   },
   "scripts": {
-    "test": "test",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha",
     "install-global" : "npm link",
+
+    "db.postgres.new" : "./tools/db/pg.db.create.sh",
+    "db.pdo_pgsql.install" : "./tools/db/pdo_pgsql.install.sh",
+
+    "node.program.new" : "node ./tools/node/newprogram.js",
+
     "start-branch" : "node ./src/git/start-branch.js",
     "commit-branch" : "node ./src/git/commit-branch.js",
     "clean-branch" : "node ./src/git/clean-branch.js",
     "push-branch" : "node ./src/git/push-branch.js",
     "finish-branch" : "node ./src/git/finish-branch.js"
+
   },
   "repository": {
     "type": "git",
@@ -35,12 +46,33 @@
     "name": "Christopher Maples"
   },
   "dependencies": {
-    "grunt": "~0.4.2"
+    "bluebird" : "2.2.*",
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-qunit": "~0.5.2",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "commander" : "1.*.*",
+    "request" : "latest",
+    "shelljs" : "0.3.*",
+    "yo" : "1.2.*",
+    "node-generator" : "0.0.*",
+    "generator-angular" : "*",
+    "generator-backbone" : "*",
+    "generator-chrome-extension" : "*",
+    "generator-webapp" : "*",
+    "generator-mocha" : "*",
+    "generator-mobile" : "*",
+    "generator-gruntfile" : "*",
+    "generator-gruntplugin" : "*",
+    "generator-commonjs" : "*",
+    "generator-chromeapp" : "*",
+    "generator-generator" : "*"
   },
   "devDependencies": {
     "mocha": "latest",
-    "should": "latest",
-    "request" : "latest"
+    "should": "latest"
   },
   "license": "ISC",
   "bugs": {

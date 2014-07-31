@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-var Console = new (require('./../Console.js')).Console();
+var Console = new (require('./../Console.js'))();
 
 Console.InputHandlers.StdIn = {
     Echo : function(data) {
@@ -26,7 +26,7 @@ Console.InputHandlers.StdIn = {
 
         if (!!Console.Input.TicketName && Console.Input.CommitMessage != 'n') {
             Console.Exec(
-                "git add -A . && git commit -am \""+Console.Input.TicketName+" "+Console.Input.CommitMessage+"\"", 
+                "git add -A . && git commit -am \""+Console.Input.TicketName+" "+Console.Input.CommitMessage+"\"",
                 function(err, stdout, stderr) {
                     Console.WriteLine("Want to rebase branch? y or n");
                     Console.HandleInput('StdIn', 'RebaseBranchChoose');
@@ -78,7 +78,7 @@ Console.Main = function(){
 };
 
 Console.Run();
-    
+
 
 
 
