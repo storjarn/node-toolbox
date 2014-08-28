@@ -1,0 +1,94 @@
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+<script src="/assets/bundles/rpg.js"></script>
+
+<style>
+    label {
+        width: 100px;
+        display: inline-block;
+    }
+    input {
+        width: 300px;
+    }
+</style>
+
+<script>
+
+    var dice = require('dice');
+    var characterGen = require('character');
+
+    function bindCharacter(character) {
+        $("#frmCharAttributes").empty();
+        for(var key in character.Attributes) {
+            var $div = $("<div />");
+            $("#frmCharAttributes").append($div);
+            var $label = $("<label />");
+            $label.text(key);
+            var $input = $("<input />");
+            $input.attr({
+                type: 'number', id:key.toLowerCase()
+            }).val(character.Attributes[key]);
+            character.ExtraAttributePoints
+                = character.ExtraAttributePoints - character.Attributes[key];
+            $div.append($label);
+            $div.append($input);
+            $input.data('prevVal', $input.val());
+        }
+        $("#divExtraAttributePoints").val(character.ExtraAttributePoints)
+        $("#charName").val(character.Name)
+        $("#charAge").val(character.Age)
+    }
+
+    $(function(){
+        $.get('/api/v1/rpg/characters', {}, function(characters){
+            characters = characters || [];
+            var $sel = $('#ddlCharacters');
+
+            $(characters).each(function() {
+                $sel.append($("<option>").attr('value',this.id).text(this.Name));
+            });
+        })
+
+        var character = characterGen.newCharacter();
+        bindCharacter(character);
+
+        $("#btnReroll").click(function(ev){
+            ev.preventDefault();
+            // character.ExtraAttributePoints = dice.roll(24, 6).value;
+        })
+
+        $("input[type='number']").bind('input', function (ev) {
+            var total = parseInt($("#divExtraAttributePoints").val());
+            total = total + ($(this).data('prevVal') - $(this).val());
+            if (total == 0) {
+                $("input[type='number']").attr('disabled', 'disabled');
+            }
+            $("#divExtraAttributePoints").val(total);
+            $(this).data('prevVal', $(this).val());
+        });
+    })
+</script>
+
+<section>
+    <div>
+        <select id="ddlCharacters">
+        </select>
+    </div>
+        <div>
+            <button id="btnReroll" disabled>Reroll</button>
+            <button id="btnRedistribute" disabled>Redistribute</button>
+        </div>
+        <div>
+            <label>Name</label>
+            <input type='text' id="charName" />
+        </div>
+        <div>
+            <label>Age</label>
+            <input type='number' id="charAge" />
+        </div>
+        <div>
+            <label>Extra Points</label>
+            <input id="divExtraAttributePoints" disabled />
+        </div>
+    <form id="frmCharAttributes">
+    </form>
+</section>

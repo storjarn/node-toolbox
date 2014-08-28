@@ -1,0 +1,22 @@
+{
+    "entries": {
+        "1.json": {
+            "id": 1,
+            "url": "/api/v1/users/1",
+            "first_name": "Christopher",
+            "last_name": "Maples",
+            "created_at": 1408401498636,
+            "updated_at": 1408401498636
+        },
+        "2.json": {
+            "first_name": "Test",
+            "last_name": "User",
+            "id": 2,
+            "url": "/api/v1/users/2",
+            "created_at": 1408401527423,
+            "updated_at": 1408401527423
+        }
+    },
+    "count": 2,
+    "lastIndex": 2
+}

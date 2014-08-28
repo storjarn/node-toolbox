@@ -1,0 +1,8 @@
+{
+    "first_name": "Test",
+    "last_name": "User",
+    "id": 2,
+    "url": "/api/v1/users/2",
+    "created_at": 1408401527422,
+    "updated_at": 1408401527422
+}
