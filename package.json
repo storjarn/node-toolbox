@@ -17,7 +17,7 @@
     "dice" : "./tools/game/dice.js"
   },
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha && pioneer",
     "install-global" : "npm link",
 
     "db.postgres.new" : "./tools/db/pg.db.create.sh",
