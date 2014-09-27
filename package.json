@@ -25,6 +25,8 @@
 
     "node.program.new" : "node ./tools/node/newprogram.js",
 
+    "http.download.files" : "./tools/http/download_all.sh",
+
     "start-branch" : "node ./src/git/start-branch.js",
     "commit-branch" : "node ./src/git/commit-branch.js",
     "clean-branch" : "node ./src/git/clean-branch.js",
@@ -60,7 +62,7 @@
     "memoria" : "0.1.*",
     "zombie" : "1.4",
     "tough-cookie" : "0.12.1",
-    "yo" : "1.2.*",
+    "yo" : "1.1.2",
     "node-generator" : "0.0.*",
     "generator-angular" : "*",
     "generator-backbone" : "*",
