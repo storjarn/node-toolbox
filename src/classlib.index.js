@@ -18,5 +18,5 @@ module.exports = [
      __dirname + '/classlib/system/threading/whenever:System.Threading.Whenever',
      __dirname + '/classlib/system/threading/yieldingeach:System.Threading.YieldingEach',
      __dirname + '/classlib/system/collections/linkedlist:System.Collections.LinkedList',
-     __dirname + '/classlib/web/cookiemanger:Web.CookieManager'
+     __dirname + '/classlib/web/cookiemanager:Web.CookieManager'
 ]
