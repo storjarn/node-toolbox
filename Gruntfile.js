@@ -92,11 +92,19 @@ module.exports = function(grunt) {
             classlib: {
                 files: {
                     'dist/js/browser/classlib.js': [
-                        'src/utils.js', 'src/class.js', 'src/eventemitter.js', 'src/namespace.js', 'src/classlib/**/*.js'
+                        'src/utils.js', 
+                        'src/class.js', 
+                        'src/eventemitter.js', 
+                        'src/namespace.js', 
+                        'src/classlib/**/*.js'
                     ],
                 },
                 options: {
                     alias : [
+                        // './src/class.js:class',
+                        // './src/eventemitter.js:eventemitter',
+                        // './src/namespace.js:namespace',
+                        // './src/classlib/system/utility.js:system.utility'
                     ]
                 }
             },

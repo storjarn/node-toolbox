@@ -1,0 +1,22 @@
+module.exports = [
+     __dirname + '/class:Class',
+     __dirname + '/eventemitter:EventEmitter',
+     __dirname + '/namespace:Namespace',
+     __dirname + '/namespace:Namespace',
+     __dirname + '/classlib/system/array:System.Array',
+     __dirname + '/classlib/system/boolean:System.Boolean',
+     __dirname + '/classlib/system/date:System.Date',
+     __dirname + '/classlib/system/error:System.Error',
+     __dirname + '/classlib/system/function:System.Function',
+     __dirname + '/classlib/system/input:System.Input',
+     __dirname + '/classlib/system/math:System.Math',
+     __dirname + '/classlib/system/number:System.Number',
+     __dirname + '/classlib/system/resources:System.Resources',
+     __dirname + '/classlib/system/string:System.String',
+     __dirname + '/classlib/system/utility:System.Utility',
+     __dirname + '/classlib/system/threading/sometimewhen:System.Threading.SometimeWhen',
+     __dirname + '/classlib/system/threading/whenever:System.Threading.Whenever',
+     __dirname + '/classlib/system/threading/yieldingeach:System.Threading.YieldingEach',
+     __dirname + '/classlib/system/collections/linkedlist:System.Collections.LinkedList',
+     __dirname + '/classlib/web/cookiemanger:Web.CookieManager'
+]
