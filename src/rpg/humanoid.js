@@ -2,9 +2,9 @@
  *
  */
 
-var Character = require('./Character');
+var Character = require('./character');
 
-var Humanoid = RPG.Character.extend('Humanoid', {
+var Humanoid = Character.extend('Humanoid', {
     init : function(name, attributes){
         this.parent(name, attributes);
         this.LoadBodyDefinition(BodyConfiguration);

@@ -2,7 +2,7 @@
  *
  */
 
-require('../class');
+var Class = require('../class');
 
 var Body = Class.extend('Body', {
     init : function(){

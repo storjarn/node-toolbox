@@ -3,7 +3,7 @@
     var Namespace = require('../namespace');
     var Class = require('../class');
     var EventEmitter = require('../eventemitter');
-    var Utility = require('./system/utility');
+    var Utility = require('../utils');
 
     /*
          System

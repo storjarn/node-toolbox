@@ -1,10 +1,6 @@
 (function(context, undefined){
 
-  if (!context.JSCore && !context.JSCore.initialized) { throw "JSCore not initialized!"; }
-
-    var Utility = context.Utility,
-      Resources = context.Resources,
-      Class = context.Class;
+    var Utility = require('./utility');
 
    /*
       Type: Number (extensions)

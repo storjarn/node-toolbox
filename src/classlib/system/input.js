@@ -1,12 +1,8 @@
 (function(context, undefined){
 
-   if (!context.JSCore && !context.JSCore.initialized) { throw "JSCore not initialized!"; }
-
-     var Utility = context.Utility,
-      System = context.System,
-      Resources = context.Resources,
-      Namespace = context.Namespace,
-      Class = context.Class;
+    var Utility = require('./utility');
+    var Namespace = require('../../namespace')
+    var System = require('../system')
 
    /*
       System.Input

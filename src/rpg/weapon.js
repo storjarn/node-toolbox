@@ -2,7 +2,7 @@
  *
  */
 
-var Class = require('./class');
+var Class = require('../class');
 var dice = require('../tools/dice');
 
 var defaultBluntAttack = function() {

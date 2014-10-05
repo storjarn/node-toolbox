@@ -1,4 +1,4 @@
-require('../../class');
+var Class = require('../../class');
 var Humanoid = require('../humanoid');
 var dice = require('../../tools/dice');
 
@@ -27,4 +27,4 @@ var Gnome = Humanoid.extend('Gnome', {
     }
 })
 
-module.exports = Dwarf;
+module.exports = Gnome;

@@ -1,17 +1,14 @@
 (function(context, undefined){
 
-   if (!context.JSCore && !context.JSCore.initialized) { throw "JSCore not initialized!"; }
-
-     var Utility = context.Utility,
-      Resources = context.Resources,
-      Class = context.Class;
+    var Utility = require('./utility');
+    var Class = require('../../class')
 
    /*
       Type: Error (extensions)
    */
 
 /* public */
-   context.TimeStampedError = Class.extend({
+   TimeStampedError = Class.extend({
       init : function(msg, num, src) {
          this.TimeStamp = new Date();
          var err;

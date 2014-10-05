@@ -55,8 +55,8 @@
    var LinkedListItem = Collections.addClass(
       System.Class.extend("LinkedListItem", {
          init : function(val){  this.Value = val || null; this.Next = null; }
-      }
-   );
+      })
+   )
 
 /* public */
 

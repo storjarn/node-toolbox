@@ -1,6 +1,6 @@
 (function(undefined){
 
-   var Namespace = require('./namespace');
+   var Namespace = require('../namespace');
 
     var Web = new Namespace("Web");
 

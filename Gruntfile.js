@@ -12,61 +12,112 @@ module.exports = function(grunt) {
           ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
         // Task configuration.
         concat: {
-          options: {
-            banner: '<%= banner %>',
-            stripBanners: true
-          },
-          dist: {
-            src: ['src/**/*.js', 'tools/**/*.js'],
-            dest: 'dist/<%= pkg.name %>.js'
-          }
+            options: {
+                banner: '<%= banner %>',
+                stripBanners: true
+            },
+            dist: {
+                src: ['src/**/*.js', 'tools/**/*.js'],
+                dest: 'dist/<%= pkg.name %>.js'
+            }
         },
         uglify: {
-          options: {
-            banner: '<%= banner %>'
-          },
-          dist: {
-            src: '<%= concat.dist.dest %>',
-            dest: 'dist/<%= pkg.name %>.min.js'
-          }
+            options: {
+                banner: '<%= banner %>'
+            },
+            dist: {
+                src: '<%= concat.dist.dest %>',
+                dest: 'dist/<%= pkg.name %>.min.js'
+            }
         },
         jshint: {
-          options: {
-            curly: true,
-            eqeqeq: true,
-            immed: true,
-            latedef: true,
-            newcap: true,
-            noarg: true,
-            sub: true,
-            undef: true,
-            unused: true,
-            boss: true,
-            eqnull: true,
-            browser: true,
-            globals: {
-              jQuery: true
+            options: {
+                curly: false,
+                eqeqeq: false,
+                immed: true,
+                newcap: true,
+                noarg: true,
+                sub: true,
+                undef: true,
+                unused: false,
+                boss: true,
+                eqnull: false,
+                browser: true,
+                asi: true,
+                laxbreak: false,
+                latedef: false,
+                loopfunc: true,
+                globals: {
+                    console: true,
+                    require: true,
+                    exports: true,
+                    module: true
+                }
+            },
+            gruntfile: {
+                src: 'Gruntfile.js'
+            },
+            src: {
+                src: ['src/**/*.js']
+            },
+            tools: {
+                src: ['tools/**/*.js']
+            },
+            test: {
+                src: ['test/**/*.js']
             }
-          },
-          gruntfile: {
-            src: 'Gruntfile.js'
-          },
-          src_test: {
-            src: ['src/**/*.js', 'tools/**/*.js', 'test/**/*.js']
-          }
         },
         qunit: {
-          files: ['test/**/*.html']
+            files: ['test/**/*.html']
         },
         watch: {
-          gruntfile: {
-            files: '<%= jshint.gruntfile.src %>',
-            tasks: ['jshint:gruntfile']
-          },
-          lib_test: {
-            files: '<%= jshint.src_test.src %>',
-            tasks: ['jshint:src_test', 'qunit']
-          }
+            gruntfile: {
+                files: '<%= jshint.gruntfile.src %>',
+                tasks: ['jshint:gruntfile']
+            },
+            src: {
+                files: '<%= jshint.src.src %>',
+                tasks: ['jshint:src']
+            },
+            tools: {
+                files: '<%= jshint.tools.src %>',
+                tasks: ['jshint:tools']
+            },
+            test: {
+                files: ['test/**/*.js', 'test/**/*.html'],
+                tasks: ['jshint:test', 'qunit']
+            }
+        },
+        browserify: {
+            classlib: {
+                files: {
+                    'dist/js/browser/classlib.js': [
+                        'src/utils.js', 'src/class.js', 'src/eventemitter.js', 'src/namespace.js', 'src/classlib/**/*.js'
+                    ],
+                },
+                options: {
+                    alias : [
+                    ]
+                }
+            },
+            rpg: {
+                files: {
+                    'dist/js/browser/rpg.js': ['src/tools/dics.js', 'src/rpg/**/*.js'],
+                },
+                options: {
+                    alias : [
+                    ]
+                }
+            },
+            geo: {
+                files: {
+                    'dist/js/browser/geo.js': ['src/tools/locations.js', 'src/tools/world.js'],
+                },
+                options: {
+                    alias : [
+                    ]
+                }
+            }
         }
     });
 
@@ -76,8 +127,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-browserify');
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('test', ['jshint', 'qunit'])
+    grunt.registerTask('build', ['browserify'/*, 'concat', 'uglify'*/]);
 
 };

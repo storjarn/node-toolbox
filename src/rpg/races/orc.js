@@ -1,4 +1,4 @@
-require('../../class');
+var Class = require('../../class');
 var Humanoid = require('../humanoid');
 var dice = require('../../tools/dice');
 

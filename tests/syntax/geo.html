@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+
+    </body>
+    <script>
+        window.onerror = function (message, file, line, col, error) {
+            var body = document.getElementsByTagName('body')[0]
+            body.innerHTML = [message, file, line, col, error].join("<br />")
+        }
+    </script>
+    <script src="../../dist/js/browser/geo.js"></script>
+</html>

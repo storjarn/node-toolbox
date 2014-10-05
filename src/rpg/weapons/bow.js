@@ -8,7 +8,7 @@ var Bow = weapon.RangedWeapon.extend('Bow', {
     Weight: 2.5
 })
 
-var ShortBow = weapon.Bow.extend('Short Bow', {
+var ShortBow = Bow.extend('Short Bow', {
     init: function() {
         this.parent();
     },
@@ -16,7 +16,7 @@ var ShortBow = weapon.Bow.extend('Short Bow', {
     Weight: 2
 })
 
-var LongBow = weapon.Bow.extend('Long Bow', {
+var LongBow = Bow.extend('Long Bow', {
     init: function() {
         this.parent();
     },
