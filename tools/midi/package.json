@@ -2,7 +2,7 @@
   "name": "midi-looper",
   "version": "0.0.1",
   "description": "",
-  "main" : "",
+  "main": "test.html",
   "directories": {
   },
   "bin" : {

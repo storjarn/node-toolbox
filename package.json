@@ -58,8 +58,10 @@
     "grunt-browserify" : "*",
     "commander" : "1.*.*",
     "request" : "latest",
-    "browserify" : "*"
+    "browserify" : "*",
+    "aliasify" : "*"
   },
+  "aliasify": "./tools/toolbox/aliasify.js",
   "devDependencies": {
     "mocha": "latest",
     "should": "latest"

@@ -5,13 +5,34 @@
     var utils = {};
 
     // Util methods
-    utils.bind = function(props) {
+    utils.bind = function(props, deep) {
+        return utils.copy(this, props, deep)
+    }
+
+    utils.copy = function(obj, props, deep) {
+        deep = arguments.length == 3 ? !!deep : false
         for(var key in props) {
-            this[key] = props[key];
+            if (!!deep) {
+                if (obj.hasOwnProperty(key)) {
+                    obj[key] = utils.copy(obj[key], props[key], deep)
+                } else {
+                    obj[key] = props[key];
+                }
+            } else {
+                obj[key] = props[key];
+            }
         }
+        return obj
     }
 
     utils.bind(_utils);
+
+    utils.GUID = function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    }
 
     utils.inspect = function(obj, showHidden, depth) {
         if (arguments.length == 1) {
@@ -21,7 +42,7 @@
             depth = null;
         }
         return _utils.inspect(obj, { showHidden: showHidden, depth: depth });
-    };
+    }
 
     utils.censor = function(censor) {
       var i = 0;

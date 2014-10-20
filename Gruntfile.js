@@ -1,6 +1,9 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+    var includeMap = require('./tools/toolbox/include.map')
+    var externals = []
+
     // Project configuration.
     grunt.initConfig({
         // Metadata.
@@ -89,43 +92,6 @@ module.exports = function(grunt) {
             }
         },
         browserify: {
-            classlib: {
-                files: {
-                    'dist/js/browser/classlib.js': [
-                        'src/utils.js', 
-                        'src/class.js', 
-                        'src/eventemitter.js', 
-                        'src/namespace.js', 
-                        'src/classlib/**/*.js'
-                    ],
-                },
-                options: {
-                    alias : [
-                        // './src/class.js:class',
-                        // './src/eventemitter.js:eventemitter',
-                        // './src/namespace.js:namespace',
-                        // './src/classlib/system/utility.js:system.utility'
-                    ]
-                }
-            },
-            rpg: {
-                files: {
-                    'dist/js/browser/rpg.js': ['src/tools/dics.js', 'src/rpg/**/*.js'],
-                },
-                options: {
-                    alias : [
-                    ]
-                }
-            },
-            geo: {
-                files: {
-                    'dist/js/browser/geo.js': ['src/tools/locations.js', 'src/tools/world.js'],
-                },
-                options: {
-                    alias : [
-                    ]
-                }
-            }
         }
     });
 
