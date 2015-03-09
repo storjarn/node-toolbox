@@ -18,7 +18,7 @@ read username;
 echo "\nWould you like a password generated for you? (y or n)"
 read passgen;
 
-if [[ $passgen == 'y' ]]; then
+if $passgen == 'y' ; then
     timestamp=$(date +%s)
     hashstart=$dbname$timestamp
     password=$(md5 -qs $hashstart);

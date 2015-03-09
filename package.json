@@ -2,37 +2,31 @@
   "name": "node-toolbox",
   "version": "0.0.1",
   "description": "Node.js applications and libraries that tend to prove useful.",
-  "main" : "",
-  "directories": {
-  },
-  "bin" : {
-    "startbranch" : "./src/git/start-branch.js",
-    "commitbranch" : "./src/git/commit-branch.js",
-    "cleanbranch" : "./src/git/clean-branch.js",
-    "pushbranch" : "./src/git/push-branch.js",
-    "finishbranch" : "./src/git/finish-branch.js",
-    "db.postgres.new" : "./tools/db/pg.db.create.sh",
-    "db.pdo_pgsql.install" : "./tools/db/pdo_pgsql.install.sh",
-    "node.program.new" : "./tools/node/newprogram.js",
-    "dice" : "./tools/game/dice.js"
+  "main": "",
+  "directories": {},
+  "bin": {
+    "startbranch": "./src/git/start-branch.js",
+    "commitbranch": "./src/git/commit-branch.js",
+    "cleanbranch": "./src/git/clean-branch.js",
+    "pushbranch": "./src/git/push-branch.js",
+    "finishbranch": "./src/git/finish-branch.js",
+    "db.postgres.new": "./tools/db/pg.db.create.sh",
+    "db.pdo_pgsql.install": "./tools/db/pdo_pgsql.install.sh",
+    "node.program.new": "./tools/node/newprogram.js",
+    "dice": "./tools/game/dice.js"
   },
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha && pioneer",
-    "install-global" : "npm link",
-
-    "db.postgres.new" : "./tools/db/pg.db.create.sh",
-    "db.pdo_pgsql.install" : "./tools/db/pdo_pgsql.install.sh",
-
-    "node.program.new" : "node ./tools/node/newprogram.js",
-
-    "http.download.files" : "./tools/http/download_all.sh",
-
-    "start-branch" : "node ./src/git/start-branch.js",
-    "commit-branch" : "node ./src/git/commit-branch.js",
-    "clean-branch" : "node ./src/git/clean-branch.js",
-    "push-branch" : "node ./src/git/push-branch.js",
-    "finish-branch" : "node ./src/git/finish-branch.js"
-
+    "install-global": "npm link",
+    "db.postgres.new": "./tools/db/pg.db.create.sh",
+    "db.pdo_pgsql.install": "./tools/db/pdo_pgsql.install.sh",
+    "node.program.new": "node ./tools/node/newprogram.js",
+    "http.download.files": "./tools/http/download_all.sh",
+    "start-branch": "node ./src/git/start-branch.js",
+    "commit-branch": "node ./src/git/commit-branch.js",
+    "clean-branch": "node ./src/git/clean-branch.js",
+    "push-branch": "node ./src/git/push-branch.js",
+    "finish-branch": "node ./src/git/finish-branch.js"
   },
   "repository": {
     "type": "git",
@@ -48,18 +42,19 @@
     "name": "Christopher Maples"
   },
   "dependencies": {
-    "bluebird" : "2.2.*",
+    "aliasify": "*",
+    "bluebird": "2.2.*",
+    "browserify": "*",
+    "commander": "1.*.*",
+    "ee-class": "git://github.com/storjarn/ee-class",
     "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-qunit": "~0.5.2",
+    "grunt-browserify": "*",
     "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-qunit": "~0.5.2",
     "grunt-contrib-uglify": "~0.5.0",
-    "grunt-browserify" : "*",
-    "commander" : "1.*.*",
-    "request" : "latest",
-    "browserify" : "*",
-    "aliasify" : "*"
+    "grunt-contrib-watch": "~0.6.1",
+    "request": "latest"
   },
   "aliasify": "./tools/toolbox/aliasify.js",
   "devDependencies": {
