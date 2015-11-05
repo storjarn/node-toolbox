@@ -1,7 +1,7 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 
-var Console = new (require('./../../src/Console.js'))();
-var dice = require('./../../src/tools/dice');
+var Console = new (require('./../../src/tools/Console.js'))();
+var dice = require('./../src/game/Game.Dice');
 
 Console.InputHandlers.StdIn = {
     Start : function(data) {
